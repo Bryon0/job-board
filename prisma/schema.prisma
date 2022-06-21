@@ -22,7 +22,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   job           Job[]
-  company       Boolean @default(false) 
+  company       Boolean @default(false)
+  applications Application[] 
 }
 
 model VerificationToken {
@@ -72,4 +73,14 @@ model Job {
   published    Boolean @default(true)
   author       User     @relation(fields: [authorId], references: [id])
   authorId     String
+  applications Application[]
+}
+
+model Application {
+  id          Int    @id @default(autoincrement())
+  coverletter String
+  job         Job    @relation(fields: [jobId], references: [id])
+  jobId       Int
+  author      User   @relation(fields: [authorId], references: [id])
+  authorId    String
 }

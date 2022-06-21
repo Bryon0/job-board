@@ -3,10 +3,8 @@ import Jobs from 'components/Jobs'
 import prisma  from 'lib/prisma'
 import { getJobsPosted, getUser } from 'lib/data.js'
 
-export default function Dashboard() { 
+export default function Dashboard({jobs, user}) { 
     const { data: session, status} = useSession()
-
-
 
     return (
       <div className='mt-10'>
@@ -35,17 +33,16 @@ export default function Dashboard() {
 export async function getServerSideProps(context) {
     const session = await getSession(context)
 
-    let user = getUser(session.user.id, prisma)
+    let user = await getUser(session.user.id, prisma)
     user = JSON.parse(JSON.stringify(user))
 
-    let jobs = getJobsPosted(user.id, prisma)
+    let jobs = await getJobsPosted(user.id, prisma)
     jobs = JSON.parse(JSON.stringify(jobs))
 
     return {
-        props:
-        {
-            user,
-            jobs,
-        }
+      props: {
+        jobs,
+        user,
+      },
     }
 }

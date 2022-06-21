@@ -19,6 +19,13 @@ export default function Job({ job }) {
         <div className='mb-4 mt-20'>
           <div className='pl-16 pr-16 -mt-6'>
             <p className='text-base font-normal mt-3'>{job.description}</p>
+            <div className='mt-20 flex justify-center '>
+              <Link href={`/job/${job.id}/apply`}>
+                <button className=' border  px-8 py-2 mt-0  font-bold rounded-full bg-black text-white '>
+                  Apply to this job
+                </button>
+              </Link>
+            </div>
             <div className='mt-4'>
               <h4 className='inline'>Posted by</h4>
               <div className='inline'>
